@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title></title>
+    <link>http://shurikus57.github.io/</link>
+    <description>Recent content on </description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ru</language>
+    <lastBuildDate>Fri, 24 Mar 2017 01:07:02 +0300</lastBuildDate>
+    
+        <atom:link href="http://shurikus57.github.io/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Работа с Android Runtime Permissions</title>
+      <link>http://shurikus57.github.io/post/2017/03/introduce_android_permissions/</link>
+      <pubDate>Fri, 24 Mar 2017 01:07:02 +0300</pubDate>
+      
+      <guid>http://shurikus57.github.io/post/2017/03/introduce_android_permissions/</guid>
+      
+        <description>&lt;h2 id=&#34;введение&#34;&gt;Введение&lt;/h2&gt;
+
+&lt;p&gt;SDK android дает богатые возможности для работы с телефоном. Есть возможность получать фотографии, отслеживать перемещения телефона, записывать звук с микрофона, перехватывать sms и т.д. Перечисленные возможности попадают под категорию конфиденциальные. К сожалению, до недавнего времени, единственный способ узнать какие разрешения будет использовать приложение, можно было увидеть только в диалоговом окне при установке приложения. На практике, данный подход оказался неэффективен, т.к. пользователь обычно не читает и автоматически соглашается с установкой. В результате в google play появилась куча приложений типа “Фонарик”, которые получали доступ к разрешениям которые совершенно не нужных для выполнения своих задач.&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://shurikus57.github.io/2017/03/Flashlight-Permissions-Comapred.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;С выходом android 6 (API level 23) ситуация изменилась. Появились разрешения, которые необходимо принимать при работе приложения. Работает это точно так же как и в iOS. При запуске приложения появляется системный диалог, который и предлагает пользователю разрешить или запретить доступ приложения к разрешению.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://shurikus57.github.io/2017/03/b84e66bbf0f4d751f5febc51742e3ca4.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;виды-permissions&#34;&gt;Виды Permissions&lt;/h2&gt;
+
+&lt;p&gt;Теперь разрешения разделены на два типа:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;обычные (normal);&lt;/li&gt;
+&lt;li&gt;опасные (dangerous&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Обычные разрешения - это группа разрешений, которые не связаны с приватными данными. Они описываться в &lt;strong&gt;manifest.xml&lt;/strong&gt; и принимаются пользователем автоматически при установки приложения. Опасные разрешения - дают доступ к приватным данным пользователя.&lt;/p&gt;
+
+&lt;p&gt;Список опасных разрешений:&lt;/p&gt;
+
+&lt;p&gt;READ_CALENDAR&lt;/p&gt;
+
+&lt;p&gt;WRITE_CALENDAR&lt;/p&gt;
+
+&lt;p&gt;CAMERA&lt;/p&gt;
+
+&lt;p&gt;READ_CONTACTS&lt;/p&gt;
+
+&lt;p&gt;WRITE_CONTACTS&lt;/p&gt;
+
+&lt;p&gt;GET_ACCOUNTS&lt;/p&gt;
+
+&lt;p&gt;ACCESSFINELOCATION&lt;/p&gt;
+
+&lt;p&gt;ACCESSCOARSELOCATION&lt;/p&gt;
+
+&lt;p&gt;RECORD_AUDIO&lt;/p&gt;
+
+&lt;p&gt;READPHONESTATE&lt;/p&gt;
+
+&lt;p&gt;CALL_PHONE&lt;/p&gt;
+
+&lt;p&gt;READCALLLOG&lt;/p&gt;
+
+&lt;p&gt;WRITECALLLOG&lt;/p&gt;
+
+&lt;p&gt;ADD_VOICEMAIL&lt;/p&gt;
+
+&lt;p&gt;USE_SIP&lt;/p&gt;
+
+&lt;p&gt;PROCESSOUTGOINGCALLS&lt;/p&gt;
+
+&lt;p&gt;BODY_SENSORS&lt;/p&gt;
+
+&lt;p&gt;SEND_SMS&lt;/p&gt;
+
+&lt;p&gt;RECEIVE_SMS&lt;/p&gt;
+
+&lt;p&gt;READ_SMS&lt;/p&gt;
+
+&lt;p&gt;RECEIVEWAPPUSH&lt;/p&gt;
+
+&lt;p&gt;RECEIVE_MMS&lt;/p&gt;
+
+&lt;p&gt;READEXTERNALSTORAGE&lt;/p&gt;
+
+&lt;p&gt;WRITEEXTERNALSTORAGE&lt;/p&gt;
+
+&lt;p&gt;С версии android API level 23, необходимо обязательно запрашивать разрешение у пользователя, иначе приложение упадет с исключением:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://shurikus57.github.io/2017/03/pasted image 0.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Также у пользователя появилась возможность в любой момент можно дать или запретить разрешение. Для этого в настройках приложения появился новый пункт меню “Разрешения”.&lt;/p&gt;
+
+&lt;h2 id=&#34;когда-следует-запрашивать-разрешения&#34;&gt;Когда следует запрашивать разрешения&lt;/h2&gt;
+
+&lt;p&gt;Базовые разрешения, без которых приложение не сможет запуститься следует запрашивать при старте приложения. Остальные разрешения следует запрашивать только перед непосредственным использованием.&lt;/p&gt;
+
+&lt;h2 id=&#34;постановка-задачи&#34;&gt;Постановка задачи&lt;/h2&gt;
+
+&lt;p&gt;Создадим простое приложение, которое по нажатию на кнопку будет выводить список имён из адресной книги телефона.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://shurikus57.github.io/2017/03/Android Emulator - Nexus_4_API_25_5556_002.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;создание-проекта&#34;&gt;Создание проекта&lt;/h2&gt;
+
+&lt;p&gt;Создадим новый проект с &lt;strong&gt;Empty Activity&lt;/strong&gt;. В &lt;strong&gt;activity_main.xml&lt;/strong&gt; создадим одну кнопку и ListView.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;LinearLayout xmlns:android=&amp;quot;http://schemas.android.com/apk/res/android&amp;quot;
+    android:layout_width=&amp;quot;match_parent&amp;quot;
+    android:layout_height=&amp;quot;match_parent&amp;quot;
+    android:orientation=&amp;quot;vertical&amp;quot;&amp;gt;
+
+    &amp;lt;Button
+        android:id=&amp;quot;@+id/btn_permission_read_contacts&amp;quot;
+        android:layout_width=&amp;quot;wrap_content&amp;quot;
+        android:layout_height=&amp;quot;wrap_content&amp;quot;
+        android:text=&amp;quot;@string/text_read_contacts&amp;quot;/&amp;gt;
+
+    &amp;lt;ListView
+        android:id=&amp;quot;@+id/list_contacts&amp;quot;
+        android:layout_width=&amp;quot;match_parent&amp;quot;
+        android:layout_height=&amp;quot;match_parent&amp;quot;/&amp;gt;
+
+&amp;lt;/LinearLayout&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Добавим строковый ресурсы в &lt;strong&gt;strings.xml&lt;/strong&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;string name=&amp;quot;text_read_contacts&amp;quot;&amp;gt;Read contacts&amp;lt;/string&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;А также добавим разрешение в &lt;strong&gt;manifest.xml&lt;/strong&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;uses-permission android:name=&amp;quot;android.permission.READ_CONTACTS&amp;quot; /&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Инициализируем view компоненты и повесим обработчик нажатия на кнопку.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;private static final int MY_PERMISSIONS_REQUEST_READ_CONTACTS = 1234;
+private ListView mListContacts;
+
+@Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        Button buttonReadContacts = (Button) findViewById(R.id.btn_permission_read_contacts);
+        mListContacts = (ListView) findViewById(R.id.list_contacts);
+
+        buttonReadContacts.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getContacts();
+            }
+        });
+    }
+
+public void getContacts(){
+        //Проверяем есть ли у нас разрешение на чтение контактов
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.READ_CONTACTS)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                    Manifest.permission.READ_CONTACTS)) {
+                //Здесь выводим сообщение в котором поясняем почему необходимы разрешение
+                Toast.makeText(this,&amp;quot;Need for show contacts. Please turn on permission at [Setting]&amp;gt;[Permission]&amp;quot;, Toast.LENGTH_SHORT).show();
+            } else {
+                //Запрашиваем разрешение
+                ActivityCompat.requestPermissions(this,
+                new String[]{Manifest.permission.READ_CONTACTS},
+                MY_PERMISSIONS_REQUEST_READ_CONTACTS);
+            }
+            return;
+        }
+
+        Cursor phones = getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null, null, null, null);
+        if(phones == null){
+            return;
+        }
+
+        List&amp;lt;String&amp;gt; nameList = new ArrayList&amp;lt;&amp;gt;();
+        while (phones.moveToNext()) {
+            String user = &amp;quot;&amp;quot;;
+            user = phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME));
+            nameList.add(user);
+        }
+        phones.close();
+
+        ArrayAdapter&amp;lt;String&amp;gt; adapter = new ArrayAdapter&amp;lt;&amp;gt;(getApplicationContext(), android.R.layout.simple_list_item_1
+, android.R.id.text1, nameList);
+        mListContacts.setAdapter(adapter);
+
+    }
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Обработать результат запроса разрешения следует в &lt;strong&gt;onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults)&lt;/strong&gt;, где &lt;strong&gt;requestCode&lt;/strong&gt; есть id который был передан в &lt;strong&gt;ActivityCompat.requestPermissions()&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch (requestCode) {
+            case MY_PERMISSIONS_REQUEST_READ_CONTACTS: {
+                if (grantResults.length &amp;gt; 0
+                        &amp;amp;&amp;amp; grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    //Здесь мы получаем разрешение и снова вызываем getContacts()
+                    getContacts();
+                } else {
+                    Toast.makeText(this, &amp;quot;Read contacts permission is denied.&amp;quot;, Toast.LENGTH_SHORT).show();
+                }
+                return;
+            }
+        }
+    }
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;заключение&#34;&gt;Заключение&lt;/h2&gt;
+
+&lt;p&gt;Android Runtime Permissions в первую очередь направленно на улучшение безопасности персональных данных и привлечения внимания пользователя к разрешениям, которые использует приложение.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://github.com/ShurikuS57/Android-Runtime-Permission-Tutorial&#34;&gt;Ссылка на GitHub репозиторий.&lt;/a&gt;&lt;/p&gt;</description>
+      
+    </item>
+    
+    <item>
+      <title>Как в Android получить данные из local.properties?</title>
+      <link>http://shurikus57.github.io/post/2017/03/load-data-from-local.properties/</link>
+      <pubDate>Fri, 10 Mar 2017 01:07:02 +0300</pubDate>
+      
+      <guid>http://shurikus57.github.io/post/2017/03/load-data-from-local.properties/</guid>
+      
+        <description>&lt;p&gt;Выкладывая код в публичный доступ, например на github, необходимо позаботится о том чтобы случайно не выложить важную информацию, например ключи доступа к серверу. Для этих целей прекрасно подойдёт файл &lt;strong&gt;local.properties&lt;/strong&gt;. При создании проекта в Android Studio, этот файл уже указан в &lt;strong&gt;.gitignore&lt;/strong&gt;, поэтому не будет отслеживаться системой CVS.&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;p&gt;Что бы его использовать, необходимо, добавить переменную в файл проекта &lt;strong&gt;local.properties&lt;/strong&gt;, например:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;api.key = &amp;quot;04e0f542ya38a58461a44fbd11a89530&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;В файле &lt;strong&gt;build.gradle&lt;/strong&gt;, который находится в директории проекта, в конце блока &lt;strong&gt;defaultConfig {}&lt;/strong&gt;, добавляем следующие строки:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;defaultConfig {
+....
+
+Properties properties = new Properties()
+properties.load(project.rootProject.file(&#39;local.properties&#39;).newDataInputStream())
+def apiKey = properties.getProperty(&#39;api.key&#39;)
+resValue &amp;quot;string&amp;quot;, &amp;quot;API_KEY&amp;quot;, apiKey
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;В этом блоке загружается &lt;strong&gt;local.properties&lt;/strong&gt; из корневого каталога модуля и добавляем полученное значение в ресурсы. Из ресурсов получаем значение привычным способом, через метод &lt;strong&gt;getString()&lt;/strong&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;getString(R.string.API_KEY);
+&lt;/code&gt;&lt;/pre&gt;</description>
+      
+    </item>
+    
+  </channel>
+</rss>

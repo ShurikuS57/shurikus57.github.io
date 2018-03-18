@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tags on </title>
+    <link>http://shurikus57.github.io/tags/</link>
+    <description>Recent content in Tags on </description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ru</language>
+    <lastBuildDate>Fri, 24 Mar 2017 01:07:02 +0300</lastBuildDate>
+    
+	<atom:link href="http://shurikus57.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Android</title>
+      <link>http://shurikus57.github.io/tags/android/</link>
+      <pubDate>Fri, 24 Mar 2017 01:07:02 +0300</pubDate>
+      
+      <guid>http://shurikus57.github.io/tags/android/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Local.properties</title>
+      <link>http://shurikus57.github.io/tags/local.properties/</link>
+      <pubDate>Fri, 10 Mar 2017 01:07:02 +0300</pubDate>
+      
+      <guid>http://shurikus57.github.io/tags/local.properties/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Permissions</title>
+      <link>http://shurikus57.github.io/tags/permissions/</link>
+      <pubDate>Fri, 24 Mar 2017 01:07:02 +0300</pubDate>
+      
+      <guid>http://shurikus57.github.io/tags/permissions/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: http://shurikus57.github.io/sitemap.xml

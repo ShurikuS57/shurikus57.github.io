@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Работа с Android Runtime Permissions - </title>
+  <link rel="alternate" hreflang="ru" href="http://shurikus57.github.io/" />
+
+<meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Alexander" />
+  <meta name="description" content="Введение SDK android дает богатые возможности для работы с телефоном. Есть возможность получать фотографии, отслеживать перемещения телефона, записывать звук с микрофона, перехватывать sms и т.д. Перечисленные возможности попадают под категорию конфиденциальные. К сожалению, до недавнего времени, единственный способ узнать какие разрешения будет использовать приложение, можно было увидеть только в диалоговом окне при установке приложения. На практике, данный подход оказался неэффективен, т.к. пользователь обычно не читает и автоматически соглашается с установкой. В результате в google play появилась куча приложений типа “Фонарик”, которые получали доступ к разрешениям которые совершенно не нужных для выполнения своих задач.
+
+" />
+
+  <meta name="keywords" content="Hugo, theme, jane" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.37.1" />
+
+
+<link rel="canonical" href="http://shurikus57.github.io/post/2017/03/introduce_android_permissions/" />
+
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" href="/favicon.ico" />
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+
+<link href="/dist/jane.min.css?v=2.7.0" rel="stylesheet">
+<link href="/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+
+
+
+
+<meta property="og:title" content="Работа с Android Runtime Permissions" />
+<meta property="og:description" content="Введение
+
+SDK android дает богатые возможности для работы с телефоном. Есть возможность получать фотографии, отслеживать перемещения телефона, записывать звук с микрофона, перехватывать sms и т.д. Перечисленные возможности попадают под категорию конфиденциальные. К сожалению, до недавнего времени, единственный способ узнать какие разрешения будет использовать приложение, можно было увидеть только в диалоговом окне при установке приложения. На практике, данный подход оказался неэффективен, т.к. пользователь обычно не читает и автоматически соглашается с установкой. В результате в google play появилась куча приложений типа “Фонарик”, которые получали доступ к разрешениям которые совершенно не нужных для выполнения своих задач.
+
+" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://shurikus57.github.io/post/2017/03/introduce_android_permissions/" />
+
+
+
+<meta property="article:published_time" content="2017-03-24T01:07:02&#43;03:00"/>
+
+<meta property="article:modified_time" content="2017-03-24T01:07:02&#43;03:00"/>
+
+
+
+
+
+
+
+
+
+
+
+<meta itemprop="name" content="Работа с Android Runtime Permissions">
+<meta itemprop="description" content="Введение
+
+SDK android дает богатые возможности для работы с телефоном. Есть возможность получать фотографии, отслеживать перемещения телефона, записывать звук с микрофона, перехватывать sms и т.д. Перечисленные возможности попадают под категорию конфиденциальные. К сожалению, до недавнего времени, единственный способ узнать какие разрешения будет использовать приложение, можно было увидеть только в диалоговом окне при установке приложения. На практике, данный подход оказался неэффективен, т.к. пользователь обычно не читает и автоматически соглашается с установкой. В результате в google play появилась куча приложений типа “Фонарик”, которые получали доступ к разрешениям которые совершенно не нужных для выполнения своих задач.
+
+">
+
+
+<meta itemprop="datePublished" content="2017-03-24T01:07:02&#43;03:00" />
+<meta itemprop="dateModified" content="2017-03-24T01:07:02&#43;03:00" />
+<meta itemprop="wordCount" content="585">
+
+
+
+<meta itemprop="keywords" content="Android,Permissions," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Работа с Android Runtime Permissions"/>
+<meta name="twitter:description" content="Введение
+
+SDK android дает богатые возможности для работы с телефоном. Есть возможность получать фотографии, отслеживать перемещения телефона, записывать звук с микрофона, перехватывать sms и т.д. Перечисленные возможности попадают под категорию конфиденциальные. К сожалению, до недавнего времени, единственный способ узнать какие разрешения будет использовать приложение, можно было увидеть только в диалоговом окне при установке приложения. На практике, данный подход оказался неэффективен, т.к. пользователь обычно не читает и автоматически соглашается с установкой. В результате в google play появилась куча приложений типа “Фонарик”, которые получали доступ к разрешениям которые совершенно не нужных для выполнения своих задач.
+
+"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+
+
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo"></a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Главная</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Архив</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Метки</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Категории</li>
+      </a>
+  </ul>
+</nav>
+
+  <header id="header" class="header container">
+    <div class="logo-wrapper">
+  <a href="/" class="logo"></a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Главная</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Архив</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Метки</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Категории</a>
+      </li>
+  </ul>
+</nav>
+  </header>
+
+  <div id="mobile-panel">
+    <main id="main" class="main bg-llight">
+      <div class="content-wrapper">
+        <div id="content" class="content container">
+          <article class="post bg-white">
+    
+    <header class="post-header">
+      <h1 class="post-title">Работа с Android Runtime Permissions</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 24 Mar 2017 </span>
+        <div class="post-category">
+            
+              <a href="/categories/android/"> Android </a>
+            
+          </div>
+        <span class="more-meta"> 585 слов </span>
+        <span class="more-meta"> 3 min read </span>
+      </div>
+    </header>
+
+    
+    
+<div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Содержание</h2>
+  
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#введение">Введение</a></li>
+<li><a href="#виды-permissions">Виды Permissions</a></li>
+<li><a href="#когда-следует-запрашивать-разрешения">Когда следует запрашивать разрешения</a></li>
+<li><a href="#постановка-задачи">Постановка задачи</a></li>
+<li><a href="#создание-проекта">Создание проекта</a></li>
+<li><a href="#заключение">Заключение</a></li>
+</ul></li>
+</ul>
+</nav>
+  </div>
+</div>
+
+    
+    <div class="post-content">
+      <h2 id="введение">Введение</h2>
+
+<p>SDK android дает богатые возможности для работы с телефоном. Есть возможность получать фотографии, отслеживать перемещения телефона, записывать звук с микрофона, перехватывать sms и т.д. Перечисленные возможности попадают под категорию конфиденциальные. К сожалению, до недавнего времени, единственный способ узнать какие разрешения будет использовать приложение, можно было увидеть только в диалоговом окне при установке приложения. На практике, данный подход оказался неэффективен, т.к. пользователь обычно не читает и автоматически соглашается с установкой. В результате в google play появилась куча приложений типа “Фонарик”, которые получали доступ к разрешениям которые совершенно не нужных для выполнения своих задач.</p>
+
+<p></p>
+
+<p><img src="/2017/03/Flashlight-Permissions-Comapred.png" alt="" /></p>
+
+<p>С выходом android 6 (API level 23) ситуация изменилась. Появились разрешения, которые необходимо принимать при работе приложения. Работает это точно так же как и в iOS. При запуске приложения появляется системный диалог, который и предлагает пользователю разрешить или запретить доступ приложения к разрешению.</p>
+
+<p><img src="/2017/03/b84e66bbf0f4d751f5febc51742e3ca4.png" alt="" /></p>
+
+<h2 id="виды-permissions">Виды Permissions</h2>
+
+<p>Теперь разрешения разделены на два типа:</p>
+
+<ul>
+<li>обычные (normal);</li>
+<li>опасные (dangerous</li>
+</ul>
+
+<p>Обычные разрешения - это группа разрешений, которые не связаны с приватными данными. Они описываться в <strong>manifest.xml</strong> и принимаются пользователем автоматически при установки приложения. Опасные разрешения - дают доступ к приватным данным пользователя.</p>
+
+<p>Список опасных разрешений:</p>
+
+<p>READ_CALENDAR</p>
+
+<p>WRITE_CALENDAR</p>
+
+<p>CAMERA</p>
+
+<p>READ_CONTACTS</p>
+
+<p>WRITE_CONTACTS</p>
+
+<p>GET_ACCOUNTS</p>
+
+<p>ACCESSFINELOCATION</p>
+
+<p>ACCESSCOARSELOCATION</p>
+
+<p>RECORD_AUDIO</p>
+
+<p>READPHONESTATE</p>
+
+<p>CALL_PHONE</p>
+
+<p>READCALLLOG</p>
+
+<p>WRITECALLLOG</p>
+
+<p>ADD_VOICEMAIL</p>
+
+<p>USE_SIP</p>
+
+<p>PROCESSOUTGOINGCALLS</p>
+
+<p>BODY_SENSORS</p>
+
+<p>SEND_SMS</p>
+
+<p>RECEIVE_SMS</p>
+
+<p>READ_SMS</p>
+
+<p>RECEIVEWAPPUSH</p>
+
+<p>RECEIVE_MMS</p>
+
+<p>READEXTERNALSTORAGE</p>
+
+<p>WRITEEXTERNALSTORAGE</p>
+
+<p>С версии android API level 23, необходимо обязательно запрашивать разрешение у пользователя, иначе приложение упадет с исключением:</p>
+
+<p><img src="/2017/03/pasted image 0.png" alt="" /></p>
+
+<p>Также у пользователя появилась возможность в любой момент можно дать или запретить разрешение. Для этого в настройках приложения появился новый пункт меню “Разрешения”.</p>
+
+<h2 id="когда-следует-запрашивать-разрешения">Когда следует запрашивать разрешения</h2>
+
+<p>Базовые разрешения, без которых приложение не сможет запуститься следует запрашивать при старте приложения. Остальные разрешения следует запрашивать только перед непосредственным использованием.</p>
+
+<h2 id="постановка-задачи">Постановка задачи</h2>
+
+<p>Создадим простое приложение, которое по нажатию на кнопку будет выводить список имён из адресной книги телефона.</p>
+
+<p><img src="/2017/03/Android Emulator - Nexus_4_API_25_5556_002.png" alt="" /></p>
+
+<h2 id="создание-проекта">Создание проекта</h2>
+
+<p>Создадим новый проект с <strong>Empty Activity</strong>. В <strong>activity_main.xml</strong> создадим одну кнопку и ListView.</p>
+
+<pre><code>&lt;LinearLayout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
+    android:layout_width=&quot;match_parent&quot;
+    android:layout_height=&quot;match_parent&quot;
+    android:orientation=&quot;vertical&quot;&gt;
+
+    &lt;Button
+        android:id=&quot;@+id/btn_permission_read_contacts&quot;
+        android:layout_width=&quot;wrap_content&quot;
+        android:layout_height=&quot;wrap_content&quot;
+        android:text=&quot;@string/text_read_contacts&quot;/&gt;
+
+    &lt;ListView
+        android:id=&quot;@+id/list_contacts&quot;
+        android:layout_width=&quot;match_parent&quot;
+        android:layout_height=&quot;match_parent&quot;/&gt;
+
+&lt;/LinearLayout&gt;
+</code></pre>
+
+<p>Добавим строковый ресурсы в <strong>strings.xml</strong>:</p>
+
+<pre><code>&lt;string name=&quot;text_read_contacts&quot;&gt;Read contacts&lt;/string&gt;
+</code></pre>
+
+<p>А также добавим разрешение в <strong>manifest.xml</strong>:</p>
+
+<pre><code>&lt;uses-permission android:name=&quot;android.permission.READ_CONTACTS&quot; /&gt;
+</code></pre>
+
+<p>Инициализируем view компоненты и повесим обработчик нажатия на кнопку.</p>
+
+<pre><code>private static final int MY_PERMISSIONS_REQUEST_READ_CONTACTS = 1234;
+private ListView mListContacts;
+
+@Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        Button buttonReadContacts = (Button) findViewById(R.id.btn_permission_read_contacts);
+        mListContacts = (ListView) findViewById(R.id.list_contacts);
+
+        buttonReadContacts.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getContacts();
+            }
+        });
+    }
+
+public void getContacts(){
+        //Проверяем есть ли у нас разрешение на чтение контактов
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.READ_CONTACTS)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                    Manifest.permission.READ_CONTACTS)) {
+                //Здесь выводим сообщение в котором поясняем почему необходимы разрешение
+                Toast.makeText(this,&quot;Need for show contacts. Please turn on permission at [Setting]&gt;[Permission]&quot;, Toast.LENGTH_SHORT).show();
+            } else {
+                //Запрашиваем разрешение
+                ActivityCompat.requestPermissions(this,
+                new String[]{Manifest.permission.READ_CONTACTS},
+                MY_PERMISSIONS_REQUEST_READ_CONTACTS);
+            }
+            return;
+        }
+
+        Cursor phones = getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null, null, null, null);
+        if(phones == null){
+            return;
+        }
+
+        List&lt;String&gt; nameList = new ArrayList&lt;&gt;();
+        while (phones.moveToNext()) {
+            String user = &quot;&quot;;
+            user = phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME));
+            nameList.add(user);
+        }
+        phones.close();
+
+        ArrayAdapter&lt;String&gt; adapter = new ArrayAdapter&lt;&gt;(getApplicationContext(), android.R.layout.simple_list_item_1
+, android.R.id.text1, nameList);
+        mListContacts.setAdapter(adapter);
+
+    }
+</code></pre>
+
+<p>Обработать результат запроса разрешения следует в <strong>onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults)</strong>, где <strong>requestCode</strong> есть id который был передан в <strong>ActivityCompat.requestPermissions()</strong>.</p>
+
+<pre><code>@Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch (requestCode) {
+            case MY_PERMISSIONS_REQUEST_READ_CONTACTS: {
+                if (grantResults.length &gt; 0
+                        &amp;&amp; grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    //Здесь мы получаем разрешение и снова вызываем getContacts()
+                    getContacts();
+                } else {
+                    Toast.makeText(this, &quot;Read contacts permission is denied.&quot;, Toast.LENGTH_SHORT).show();
+                }
+                return;
+            }
+        }
+    }
+</code></pre>
+
+<h2 id="заключение">Заключение</h2>
+
+<p>Android Runtime Permissions в первую очередь направленно на улучшение безопасности персональных данных и привлечения внимания пользователя к разрешениям, которые использует приложение.</p>
+
+<p><a href="https://github.com/ShurikuS57/Android-Runtime-Permission-Tutorial">Ссылка на GitHub репозиторий.</a></p>
+    </div>
+
+    
+    
+
+    
+    
+
+    <footer class="post-footer">
+      <div class="post-tags">
+          
+          <a href="/tags/android/">Android</a>
+          
+          <a href="/tags/permissions/">Permissions</a>
+          
+        </div>
+
+      
+      <nav class="post-nav">
+        
+        
+          <a class="next" href="/post/2017/03/load-data-from-local.properties/">
+            <span class="next-text nav-default">Как в Android получить данные из local.properties?</span>
+            <span class="prev-text nav-mobile">Далее</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+    
+
+  
+
+  
+
+  
+  </article>
+        </div>
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+  <a href="http://shurikus57.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - <a class="theme-link" href="https://github.com/xianmin/hugo-theme-jane">Jane</a>
+  </span>
+
+  <span class="copyright-year">
+    &copy; 
+    
+      2017 - 
+    2018
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Alexander</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+<script src="/lib/highlight/highlight.pack.js?v=20171001"></script>
+<script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout-1.0.1.min.js"></script>
+  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+<script type="text/javascript" src="/dist/jane.min.js?v=2.7.0"></script>
+
+
+
+
+
+</body>
+</html>

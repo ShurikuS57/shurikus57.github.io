@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Android on </title>
+    <link>http://shurikus57.github.io/categories/android/</link>
+    <description>Recent content in Android on </description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ru</language>
+    <lastBuildDate>Fri, 24 Mar 2017 01:07:02 +0300</lastBuildDate>
+    
+	<atom:link href="http://shurikus57.github.io/categories/android/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Работа с Android Runtime Permissions</title>
+      <link>http://shurikus57.github.io/post/2017/03/introduce_android_permissions/</link>
+      <pubDate>Fri, 24 Mar 2017 01:07:02 +0300</pubDate>
+      
+      <guid>http://shurikus57.github.io/post/2017/03/introduce_android_permissions/</guid>
+      <description>&lt;h2 id=&#34;введение&#34;&gt;Введение&lt;/h2&gt;
+
+&lt;p&gt;SDK android дает богатые возможности для работы с телефоном. Есть возможность получать фотографии, отслеживать перемещения телефона, записывать звук с микрофона, перехватывать sms и т.д. Перечисленные возможности попадают под категорию конфиденциальные. К сожалению, до недавнего времени, единственный способ узнать какие разрешения будет использовать приложение, можно было увидеть только в диалоговом окне при установке приложения. На практике, данный подход оказался неэффективен, т.к. пользователь обычно не читает и автоматически соглашается с установкой. В результате в google play появилась куча приложений типа “Фонарик”, которые получали доступ к разрешениям которые совершенно не нужных для выполнения своих задач.&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Как в Android получить данные из local.properties?</title>
+      <link>http://shurikus57.github.io/post/2017/03/load-data-from-local.properties/</link>
+      <pubDate>Fri, 10 Mar 2017 01:07:02 +0300</pubDate>
+      
+      <guid>http://shurikus57.github.io/post/2017/03/load-data-from-local.properties/</guid>
+      <description>&lt;p&gt;Выкладывая код в публичный доступ, например на github, необходимо позаботится о том чтобы случайно не выложить важную информацию, например ключи доступа к серверу. Для этих целей прекрасно подойдёт файл &lt;strong&gt;local.properties&lt;/strong&gt;. При создании проекта в Android Studio, этот файл уже указан в &lt;strong&gt;.gitignore&lt;/strong&gt;, поэтому не будет отслеживаться системой CVS.&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>
