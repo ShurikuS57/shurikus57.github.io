@@ -2,21 +2,165 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title></title>
-    <link>http://shurikus57.github.io/</link>
+    <link>https://shurikus57.github.io/</link>
     <description>Recent content on </description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ru</language>
-    <lastBuildDate>Fri, 24 Mar 2017 01:07:02 +0300</lastBuildDate>
+    <lastBuildDate>Sun, 25 Mar 2018 00:00:00 +0000</lastBuildDate>
     
-        <atom:link href="http://shurikus57.github.io/index.xml" rel="self" type="application/rss+xml" />
+        <atom:link href="https://shurikus57.github.io/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
+      <title>Flutter часть 1. Установка и настройка</title>
+      <link>https://shurikus57.github.io/post/2018/03/setup_flutter/</link>
+      <pubDate>Sun, 25 Mar 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://shurikus57.github.io/post/2018/03/setup_flutter/</guid>
+      
+        <description>&lt;p&gt;Недавно google &lt;a href=&#34;https://developers.googleblog.com/2018/02/announcing-flutter-beta-1.html&#34;&gt;анонсировал&lt;/a&gt; beta версию Flutter. &lt;strong&gt;Flutter&lt;/strong&gt; - это новый кроссплатформенный UI framework, который включает в себе набор инструментов: движок для 2D рендеринга, готовый набор UI компонентов и набор инструментов для разработки. Он позволяет писать кроссплатформенные приложения с общей кодовой базой.&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;p&gt;Flutter состоит из трёх компонентов:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Flutter engine.&lt;/li&gt;
+&lt;li&gt;Foundation library.&lt;/li&gt;
+&lt;li&gt;Design-specific widgets.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;Flutter engine&lt;/strong&gt; - написан на C++, предоставляет низкоуровневую поддержку рендеринга, использует для этого графическую библиотеку &lt;a href=&#34;https://skia.org/&#34;&gt;Skia&lt;/a&gt;. Skia - это 2D графическая библиотека, с открытым исходным кодом, которая предоставляет кроссплатформенное API. Она служит графическим движком для Google Chrome, Chrome OS, Android, Mozilla Firefox, Firefox OS и т.д. На официальном сайте есть примеры, которые запускаются сразу из браузера.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Foundation library&lt;/strong&gt; - включает в себя базовые классы и функции, которые используются для создания приложения с использованием Flutter. Данная библиотека написана уже на языке Dart.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Design-specific widgets&lt;/strong&gt; - это набор уже готовых базовых графических компонентов для построения пользовательского интерфейса. Данный набор состоит из двух крупных наборов компонентов:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Material Design widgets - графические компоненты реализующие спецификацию material design.&lt;/li&gt;
+&lt;li&gt;Cupertino widgets - набор реализующий Apple iOS дизайн.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;особености-flutter&#34;&gt;Особености Flutter&lt;/h2&gt;
+
+&lt;h3 id=&#34;всё-есть-виджет&#34;&gt;Всё есть виджет&lt;/h3&gt;
+
+&lt;p&gt;Виджет представляет собой строительный блок для построения пользовательского интерфейса, который по сути является согласованной унифицированной моделью.&lt;/p&gt;
+
+&lt;p&gt;С помощью виджета можно определить:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;структурные элементы, например кнопки или меню&lt;/li&gt;
+&lt;li&gt;стилистические элементы, например шрифты или цветовую схему&lt;/li&gt;
+&lt;li&gt;разметку макета, например отступы.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Виджеты выстраиваются в иерархию с помощью композиции. Каждый виджет находиться внутри другого виджета и наследует его свойства. Характерной особенностью является то что корневой виджет выполняет роль application.&lt;/p&gt;
+
+&lt;p&gt;Так же виджет позволяет получать и обрабатывать события и заменять виджеты в иерархии динамически.&lt;/p&gt;
+
+&lt;h3 id=&#34;иерархия-слоёв&#34;&gt;Иерархия слоёв&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://shurikus57.github.io/2018/03/0.93afm246wlf.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://shurikus57.github.io/2018/03/0.wvfheeqihrs.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;установка-flutter&#34;&gt;Установка Flutter&lt;/h2&gt;
+
+&lt;p&gt;Что бы попробовать Flutter в деле необходимо клонировать репозиторий с GitHub из ветки beta с помощью команды:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ git clone -b beta https://github.com/flutter/flutter.git
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Далее нужно добавить переменные окружения PATH. Для этого в конец файла &lt;strong&gt;~/.bashrc&lt;/strong&gt; нужно добавить следующие строки:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;export PATH=&amp;lt;путь к каталогу&amp;gt;/flutter/bin:$PATH
+export ANDROID_HOME=/&amp;lt;путь к каталогу&amp;gt;/android-sdk-linux
+export PATH=${PATH}:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Где в первой строке необходимо указать путь к каталогу с исполняемым файлом &lt;strong&gt;flutter&lt;/strong&gt;, который находиться в каталоге &lt;strong&gt;/bin&lt;/strong&gt;. Во второй строке нужно добавить путь к Android SDK.&lt;/p&gt;
+
+&lt;p&gt;Следующая команда проверит и при необходимости закачает все зависимости, которые нужны для Flutter:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ flutter doctor
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;После того как все необходимое будут закачено, в терминале будет выведена следующая информация:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ flutter doctor
+Doctor summary (to see all details, run flutter doctor -v):
+[✓] Flutter (Channel beta, v0.1.5, on Linux, locale en_US.UTF-8)
+[✓] Android toolchain - develop for Android devices (Android SDK 27.0.3)
+[✓] Android Studio (version 3.0)
+[✓] Connected devices (1 available)
+
+• No issues found!
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;C помощью команды &lt;strong&gt;flutter devices&lt;/strong&gt; можно увидеть список подключённых устройств. В моём случае это эмулятор:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ flutter devices
+1 connected device:
+
+Android SDK built for x86 • emulator-5554 • android-x86 • Android 8.1.0 (API 27) (emulator)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;установка-плагинов-в-android-studio-flutter-и-dart&#34;&gt;Установка плагинов в Android studio (Flutter и Dart)&lt;/h2&gt;
+
+&lt;p&gt;Для поддержки Flutter в Android Studio необходимо установить плагин &lt;strong&gt;Flutter&lt;/strong&gt; из репозитория. Для этого на экране приветствия нужно выбрать пункт меню &lt;strong&gt;Configure | Plugins&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://shurikus57.github.io/2018/03/install_plugins_001.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;В окне &lt;strong&gt;Plugins&lt;/strong&gt; нужно выбрать кнопку &lt;strong&gt;Browse repositories&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://shurikus57.github.io/2018/03/install_plugins_002.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;В строке поиска вбиваем название плагина &lt;strong&gt;Flutter&lt;/strong&gt; и выбираем кнопку &lt;strong&gt;Install&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://shurikus57.github.io/2018/03/install_plugins_003.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Если ранее не был установлен плагин &lt;strong&gt;Dart&lt;/strong&gt;, то появиться диалоговое окно, где предложат это сделать. Соглашаемся с установкой.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://shurikus57.github.io/2018/03/install_plugins_004.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;После установки плагина необходимо перезапустить Android Studio. После этого в основном меню появиться новый пункт &lt;strong&gt;Start a new Flutter project&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://shurikus57.github.io/2018/03/install_plugins_005.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;создание-нового-проекта&#34;&gt;Создание нового проекта&lt;/h2&gt;
+
+&lt;p&gt;После установки плагинов в основном меню Android Studio выбираем пункт &lt;strong&gt;Start a new Flutter project&lt;/strong&gt;. После выбора пункта запуститься мастер создания проекта:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://shurikus57.github.io/2018/03/create_new_flutter_project_001.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Выбираем пункт &lt;strong&gt;Flutter Application&lt;/strong&gt;. Далее нажимаем на кнопку &lt;strong&gt;Next&lt;/strong&gt; и переходим к следующему шагу:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://shurikus57.github.io/2018/03/create_new_flutter_project_002.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Здесь необходимо указать путь к &lt;strong&gt;Flutter SDK&lt;/strong&gt;, который был закачен ранее. Нажимаем на кнопку &lt;strong&gt;Next&lt;/strong&gt;. На следующем завершающем шаге нажимаем кнопку &lt;strong&gt;Finish&lt;/strong&gt;. После этого сгенерируется Flutter проект.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://shurikus57.github.io/2018/03/create_new_flutter_project_003.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Запустим эмулятор, и произведём запуск приложения. Нужно перейти в корневой каталог проекта и выполнить команду:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ flutter run
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;После компиляции приложение запуститься на устройстве:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://shurikus57.github.io/2018/03/create_new_flutter_project_005.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;В следующей статье создадим свой собственный экран из готовых компонентов Flutter.&lt;/p&gt;</description>
+      
+    </item>
+    
+    <item>
       <title>Работа с Android Runtime Permissions</title>
-      <link>http://shurikus57.github.io/post/2017/03/introduce_android_permissions/</link>
+      <link>https://shurikus57.github.io/post/2017/03/introduce_android_permissions/</link>
       <pubDate>Fri, 24 Mar 2017 01:07:02 +0300</pubDate>
       
-      <guid>http://shurikus57.github.io/post/2017/03/introduce_android_permissions/</guid>
+      <guid>https://shurikus57.github.io/post/2017/03/introduce_android_permissions/</guid>
       
         <description>&lt;h2 id=&#34;введение&#34;&gt;Введение&lt;/h2&gt;
 
@@ -24,11 +168,11 @@
 
 &lt;p&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://shurikus57.github.io/2017/03/Flashlight-Permissions-Comapred.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://shurikus57.github.io/2017/03/Flashlight-Permissions-Comapred.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;С выходом android 6 (API level 23) ситуация изменилась. Появились разрешения, которые необходимо принимать при работе приложения. Работает это точно так же как и в iOS. При запуске приложения появляется системный диалог, который и предлагает пользователю разрешить или запретить доступ приложения к разрешению.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://shurikus57.github.io/2017/03/b84e66bbf0f4d751f5febc51742e3ca4.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://shurikus57.github.io/2017/03/b84e66bbf0f4d751f5febc51742e3ca4.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
 
 &lt;h2 id=&#34;виды-permissions&#34;&gt;Виды Permissions&lt;/h2&gt;
 
@@ -93,7 +237,7 @@
 
 &lt;p&gt;С версии android API level 23, необходимо обязательно запрашивать разрешение у пользователя, иначе приложение упадет с исключением:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://shurikus57.github.io/2017/03/pasted image 0.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://shurikus57.github.io/2017/03/pasted image 0.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Также у пользователя появилась возможность в любой момент можно дать или запретить разрешение. Для этого в настройках приложения появился новый пункт меню “Разрешения”.&lt;/p&gt;
 
@@ -105,7 +249,7 @@
 
 &lt;p&gt;Создадим простое приложение, которое по нажатию на кнопку будет выводить список имён из адресной книги телефона.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://shurikus57.github.io/2017/03/Android Emulator - Nexus_4_API_25_5556_002.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://shurikus57.github.io/2017/03/Android Emulator - Nexus_4_API_25_5556_002.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
 
 &lt;h2 id=&#34;создание-проекта&#34;&gt;Создание проекта&lt;/h2&gt;
 
@@ -230,10 +374,10 @@ public void getContacts(){
     
     <item>
       <title>Как в Android получить данные из local.properties?</title>
-      <link>http://shurikus57.github.io/post/2017/03/load-data-from-local.properties/</link>
+      <link>https://shurikus57.github.io/post/2017/03/load-data-from-local.properties/</link>
       <pubDate>Fri, 10 Mar 2017 01:07:02 +0300</pubDate>
       
-      <guid>http://shurikus57.github.io/post/2017/03/load-data-from-local.properties/</guid>
+      <guid>https://shurikus57.github.io/post/2017/03/load-data-from-local.properties/</guid>
       
         <description>&lt;p&gt;Выкладывая код в публичный доступ, например на github, необходимо позаботится о том чтобы случайно не выложить важную информацию, например ключи доступа к серверу. Для этих целей прекрасно подойдёт файл &lt;strong&gt;local.properties&lt;/strong&gt;. При создании проекта в Android Studio, этот файл уже указан в &lt;strong&gt;.gitignore&lt;/strong&gt;, поэтому не будет отслеживаться системой CVS.&lt;/p&gt;
 

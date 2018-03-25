@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Flutter on </title>
+    <link>https://shurikus57.github.io/categories/flutter/</link>
+    <description>Recent content in Flutter on </description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ru</language>
+    <lastBuildDate>Sun, 25 Mar 2018 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://shurikus57.github.io/categories/flutter/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Flutter часть 1. Установка и настройка</title>
+      <link>https://shurikus57.github.io/post/2018/03/setup_flutter/</link>
+      <pubDate>Sun, 25 Mar 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://shurikus57.github.io/post/2018/03/setup_flutter/</guid>
+      <description>&lt;p&gt;Недавно google &lt;a href=&#34;https://developers.googleblog.com/2018/02/announcing-flutter-beta-1.html&#34;&gt;анонсировал&lt;/a&gt; beta версию Flutter. &lt;strong&gt;Flutter&lt;/strong&gt; - это новый кроссплатформенный UI framework, который включает в себе набор инструментов: движок для 2D рендеринга, готовый набор UI компонентов и набор инструментов для разработки. Он позволяет писать кроссплатформенные приложения с общей кодовой базой.&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -2,39 +2,57 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tags on </title>
-    <link>http://shurikus57.github.io/tags/</link>
+    <link>https://shurikus57.github.io/tags/</link>
     <description>Recent content in Tags on </description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ru</language>
-    <lastBuildDate>Fri, 24 Mar 2017 01:07:02 +0300</lastBuildDate>
+    <lastBuildDate>Sun, 25 Mar 2018 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="http://shurikus57.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://shurikus57.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Android</title>
-      <link>http://shurikus57.github.io/tags/android/</link>
-      <pubDate>Fri, 24 Mar 2017 01:07:02 +0300</pubDate>
+      <link>https://shurikus57.github.io/tags/android/</link>
+      <pubDate>Sun, 25 Mar 2018 00:00:00 +0000</pubDate>
       
-      <guid>http://shurikus57.github.io/tags/android/</guid>
+      <guid>https://shurikus57.github.io/tags/android/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Flutter</title>
+      <link>https://shurikus57.github.io/tags/flutter/</link>
+      <pubDate>Sun, 25 Mar 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://shurikus57.github.io/tags/flutter/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Local.properties</title>
-      <link>http://shurikus57.github.io/tags/local.properties/</link>
+      <link>https://shurikus57.github.io/tags/local.properties/</link>
       <pubDate>Fri, 10 Mar 2017 01:07:02 +0300</pubDate>
       
-      <guid>http://shurikus57.github.io/tags/local.properties/</guid>
+      <guid>https://shurikus57.github.io/tags/local.properties/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Permissions</title>
-      <link>http://shurikus57.github.io/tags/permissions/</link>
+      <link>https://shurikus57.github.io/tags/permissions/</link>
       <pubDate>Fri, 24 Mar 2017 01:07:02 +0300</pubDate>
       
-      <guid>http://shurikus57.github.io/tags/permissions/</guid>
+      <guid>https://shurikus57.github.io/tags/permissions/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Ui</title>
+      <link>https://shurikus57.github.io/tags/ui/</link>
+      <pubDate>Sun, 25 Mar 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://shurikus57.github.io/tags/ui/</guid>
       <description></description>
     </item>
     

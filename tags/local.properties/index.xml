@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Local.properties on </title>
-    <link>http://shurikus57.github.io/tags/local.properties/</link>
+    <link>https://shurikus57.github.io/tags/local.properties/</link>
     <description>Recent content in Local.properties on </description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ru</language>
     <lastBuildDate>Fri, 10 Mar 2017 01:07:02 +0300</lastBuildDate>
     
-	<atom:link href="http://shurikus57.github.io/tags/local.properties/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://shurikus57.github.io/tags/local.properties/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Как в Android получить данные из local.properties?</title>
-      <link>http://shurikus57.github.io/post/2017/03/load-data-from-local.properties/</link>
+      <link>https://shurikus57.github.io/post/2017/03/load-data-from-local.properties/</link>
       <pubDate>Fri, 10 Mar 2017 01:07:02 +0300</pubDate>
       
-      <guid>http://shurikus57.github.io/post/2017/03/load-data-from-local.properties/</guid>
+      <guid>https://shurikus57.github.io/post/2017/03/load-data-from-local.properties/</guid>
       <description>&lt;p&gt;Выкладывая код в публичный доступ, например на github, необходимо позаботится о том чтобы случайно не выложить важную информацию, например ключи доступа к серверу. Для этих целей прекрасно подойдёт файл &lt;strong&gt;local.properties&lt;/strong&gt;. При создании проекта в Android Studio, этот файл уже указан в &lt;strong&gt;.gitignore&lt;/strong&gt;, поэтому не будет отслеживаться системой CVS.&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;</description>
