@@ -6,10 +6,21 @@
     <description>Recent content in Android on </description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ru</language>
-    <lastBuildDate>Sun, 25 Mar 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 25 Apr 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://shurikus57.github.io/tags/android/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Использование Lint в Android Studio для проверки своего кода</title>
+      <link>https://shurikus57.github.io/post/2018/04/lint_in_android_studio/</link>
+      <pubDate>Wed, 25 Apr 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://shurikus57.github.io/post/2018/04/lint_in_android_studio/</guid>
+      <description>&lt;p&gt;На практике в коде очень часто можно встретить очевидные ошибки, спустя какое-то время. Это может происходить из-за невнимательности при написании кода. Что бы свести такие ошибки к минимуму могут помочь статические анализаторы кода. Одним из таких анализаторов является &lt;strong&gt;Lint&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>Flutter часть 1. Установка и настройка</title>

@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Использование Lint в Android Studio для проверки своего кода - </title>
+  <link rel="alternate" hreflang="ru" href="https://shurikus57.github.io/" />
+
+<meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Alexander" />
+  <meta name="description" content="На практике в коде очень часто можно встретить очевидные ошибки, спустя какое-то время. Это может происходить из-за невнимательности при написании кода. Что бы свести такие ошибки к минимуму могут помочь статические анализаторы кода. Одним из таких анализаторов является Lint.
+
+" />
+
+  <meta name="keywords" content="Hugo, theme, jane" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.37.1" />
+
+
+<link rel="canonical" href="https://shurikus57.github.io/post/2018/04/lint_in_android_studio/" />
+
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" href="/favicon.ico" />
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+
+<link href="/dist/jane.min.css?v=2.7.0" rel="stylesheet">
+<link href="/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+
+
+
+
+<meta property="og:title" content="Использование Lint в Android Studio для проверки своего кода" />
+<meta property="og:description" content="На практике в коде очень часто можно встретить очевидные ошибки, спустя какое-то время. Это может происходить из-за невнимательности при написании кода. Что бы свести такие ошибки к минимуму могут помочь статические анализаторы кода. Одним из таких анализаторов является Lint.
+
+" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://shurikus57.github.io/post/2018/04/lint_in_android_studio/" />
+
+
+
+<meta property="article:published_time" content="2018-04-25T00:00:00&#43;00:00"/>
+
+<meta property="article:modified_time" content="2018-04-25T00:00:00&#43;00:00"/>
+
+
+
+
+
+
+
+
+
+
+
+<meta itemprop="name" content="Использование Lint в Android Studio для проверки своего кода">
+<meta itemprop="description" content="На практике в коде очень часто можно встретить очевидные ошибки, спустя какое-то время. Это может происходить из-за невнимательности при написании кода. Что бы свести такие ошибки к минимуму могут помочь статические анализаторы кода. Одним из таких анализаторов является Lint.
+
+">
+
+
+<meta itemprop="datePublished" content="2018-04-25T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2018-04-25T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="503">
+
+
+
+<meta itemprop="keywords" content="Android,Lint,Gradle," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Использование Lint в Android Studio для проверки своего кода"/>
+<meta name="twitter:description" content="На практике в коде очень часто можно встретить очевидные ошибки, спустя какое-то время. Это может происходить из-за невнимательности при написании кода. Что бы свести такие ошибки к минимуму могут помочь статические анализаторы кода. Одним из таких анализаторов является Lint.
+
+"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-115865677-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='//www.google-analytics.com/analytics.js'></script>
+
+
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo"></a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Главная</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Архив</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Метки</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Категории</li>
+      </a>
+  </ul>
+</nav>
+
+  <header id="header" class="header container">
+    <div class="logo-wrapper">
+  <a href="/" class="logo"></a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Главная</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Архив</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Метки</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Категории</a>
+      </li>
+  </ul>
+</nav>
+  </header>
+
+  <div id="mobile-panel">
+    <main id="main" class="main bg-llight">
+      <div class="content-wrapper">
+        <div id="content" class="content container">
+          <article class="post bg-white">
+    
+    <header class="post-header">
+      <h1 class="post-title">Использование Lint в Android Studio для проверки своего кода</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 25 Apr 2018 </span>
+        <div class="post-category">
+            
+              <a href="/categories/android/"> Android </a>
+            
+          </div>
+        <span class="more-meta"> 503 слов </span>
+        <span class="more-meta"> 3 мин. чтения </span>
+      </div>
+    </header>
+
+    
+    
+<div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Содержание</h2>
+  
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#способы-запуска-lint">Способы запуска Lint.</a>
+<ul>
+<li><a href="#запуск-через-меню-в-android-studio">Запуск через меню в Android Studio</a></li>
+<li><a href="#запуск-через-командную-строку">Запуск через командную строку</a></li>
+<li><a href="#запуск-при-сборке-проекта">Запуск при сборке проекта.</a></li>
+<li><a href="#настройка-gradle-сборки">Настройка gradle сборки</a></li>
+</ul></li>
+<li><a href="#настройка-правил-проверки-lint">Настройка правил проверки lint</a></li>
+<li><a href="#отключение-проверки-lint-с-помощью-анотаций-в-коде">Отключение проверки Lint с помощью анотаций в коде</a></li>
+<li><a href="#выводы">Выводы</a></li>
+</ul></li>
+</ul>
+</nav>
+  </div>
+</div>
+
+    
+    <div class="post-content">
+      <p>На практике в коде очень часто можно встретить очевидные ошибки, спустя какое-то время. Это может происходить из-за невнимательности при написании кода. Что бы свести такие ошибки к минимуму могут помочь статические анализаторы кода. Одним из таких анализаторов является <strong>Lint</strong>.</p>
+
+<p></p>
+
+<p><strong>Lint</strong> - это статический анализатор кода, который сообщает о подозрительных или критических выражениях в коде. По факту это слово стало нарицательным и им называют анализаторы, которые сканируют код на наличие ошибок.</p>
+
+<p>В Android Studio уже есть встроенные анализаторы кода, который дают подсказки &ldquo;налету&rdquo;.</p>
+
+<p><img src="/2018/04/0.vk0sxuun7g.png" alt="" /></p>
+
+<p>Однако подсказки подсвечивают ошибки достаточно ненавязчиво и поэтому их легко пропустить. Но можно запустить проверку несколькими способами.</p>
+
+<h2 id="способы-запуска-lint">Способы запуска Lint.</h2>
+
+<h3 id="запуск-через-меню-в-android-studio">Запуск через меню в Android Studio</h3>
+
+<p>Самый простой и удобный способ запуска проверки - это через Android Studio. Для этого в меню необходимо выбрать пункты <strong>Analyze -&gt; Inspect Code</strong>. В появившемся окне можно ограничить область сканирования кода. Можно проверить весь проект, определённый модуль или отдельный взятый класс. На мой взгляд самый полезных из пунктов - это проверка не закоммиченых файлов. Так же можно выбрать профиль с набором правил для проверки.</p>
+
+<p><img src="/2018/04/0.1dbij1b5zx3.png" alt="" /></p>
+
+<p>После выбора настроек можно начать проверку по нажатию на кнопку <strong>Ок</strong>. Когда проверка закончиться то появиться окно в котором все ошибки, и предупреждения будут выведены в специальном окне. Все замечания удобно собраны по типам с кратким описание причины и решением проблемы.</p>
+
+<p><img src="/2018/04/0.vd7ze705hrr.png" alt="" /></p>
+
+<h3 id="запуск-через-командную-строку">Запуск через командную строку</h3>
+
+<p>Так же проверку можно запустить через gradle выполнив в консоли команду:</p>
+
+<pre><code>./gradlew lint
+</code></pre>
+
+<p>После проверки сформируется отчёт в формате html, который можно посмотреть по следующему пути:</p>
+
+<pre><code>/путь_к_проекту/app/build/reports/lint-results.html
+</code></pre>
+
+<p><img src="/2018/04/0.kwp4i9sqfib.png" alt="" /></p>
+
+<p>Этот способ менее удобный чем первый, так как отчёт формируется в отрыве от студии и для правки ошибок нужно постоянно переключаться между отчётом и IDE. Зато этот способ прекрасно подходит для случаев если проверку осуществляется на сервере, а в случае обнаружение ошибок, прикреплять файл с отчётом к письму.</p>
+
+<h3 id="запуск-при-сборке-проекта">Запуск при сборке проекта.</h3>
+
+<p>Можно автоматизировать запуск проверки <strong>lint</strong>, который будет осуществлять при каждой сборке проекта. Для этого необходимо зайти в настройки запуска проекта:</p>
+
+<p><img src="/2018/04/0.g9ehbhbsyy6.png" alt="" /></p>
+
+<p>Добавить следующую строку:</p>
+
+<pre><code>:app:check
+</code></pre>
+
+<p><img src="/2018/04/0.9uluolx5moh.png" alt="" /></p>
+
+<p><img src="/2018/04/0.9djeakj61z5.png" alt="" /></p>
+
+<p>Этот способ менее предпочтительный так как значительно замедлит скорость сборки и разработки.</p>
+
+<h3 id="настройка-gradle-сборки">Настройка gradle сборки</h3>
+
+<p>Так же lint проверку можно настроить в gradle файле.</p>
+
+<pre><code>lintOptions {
+    abortOnError false
+    warningsAsErrors true
+    lintConfig file('./code_quality_tools/lint.xml')
+}
+</code></pre>
+
+<ul>
+<li><strong>abortOnError</strong>: В случае обнаружение ошибки прекращается проверка.</li>
+<li><strong>warningsAsErrors</strong>: определяет предупреждения как ошибки.</li>
+<li><strong>lintConfig</strong>: путь к файлу проекта с настройками lint.</li>
+</ul>
+
+<p>Если опция <strong>abortOnError</strong> включена, то при запуске сборки через gradle в случае обнаружении ошибки произойдёт исключение:</p>
+
+<p><img src="/2018/04/0.qudg0ahc9gf.png" alt="" /></p>
+
+<h2 id="настройка-правил-проверки-lint">Настройка правил проверки lint</h2>
+
+<p>Отредактировать правила lint можно в настройках Android studio. Там же можно сделать отдельный конфигурационный профиль и использовать его.</p>
+
+<p><img src="/2018/04/0.kjxqrx82l1q.png" alt="" /></p>
+
+<h2 id="отключение-проверки-lint-с-помощью-анотаций-в-коде">Отключение проверки Lint с помощью анотаций в коде</h2>
+
+<p>Иногда бывают исключения, и может сложиться ситуация что необходимо отключить проверку какого-либо правила проверки для класса или метода. В Java коде это делается через аннотацию <strong>@SuppressLint(&ldquo;NewApi&rdquo;)</strong>. В качестве параметра принимает строку названия проверки которую нужно исключить. Если нужно исключить все правила, то можно использовать следующую аннотацию:</p>
+
+<pre><code>@SuppressLint(&quot;all&quot;)
+</code></pre>
+
+<p>Так же проверку можно обойти в xml файлах с помощью аттрибута <strong>tools:ignore=&ldquo;NewApi,StringFormatInvalid&rdquo;</strong>.</p>
+
+<h2 id="выводы">Выводы</h2>
+
+<p>В данной статье мы рассмотрели основные способы запуска проверки кода. Lint очень полезный инструмент для контроля за качеством кода, которым можно и нужно пользоваться.</p>
+    </div>
+
+    
+    
+
+    
+    
+
+    <footer class="post-footer">
+      <div class="post-tags">
+          
+          <a href="/tags/android/">Android</a>
+          
+          <a href="/tags/lint/">Lint</a>
+          
+          <a href="/tags/gradle/">Gradle</a>
+          
+        </div>
+
+      
+      <nav class="post-nav">
+        
+        
+          <a class="next" href="/post/2018/03/setup_flutter/">
+            <span class="next-text nav-default">Flutter часть 1. Установка и настройка</span>
+            <span class="prev-text nav-mobile">Далее</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+    
+
+  <div class="disqus-button" id="load_disqus" onclick="load_disqus()">
+      Show Disqus Comments
+    </div>
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    function load_disqus() {
+        
+        
+        if (window.location.hostname === 'localhost') return;
+
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        var disqus_shortname = 'progdev';
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+
+        $('#load_disqus').remove();
+    };
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    
+
+  
+
+  
+  </article>
+        </div>
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+  <a href="https://shurikus57.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - <a class="theme-link" href="https://github.com/xianmin/hugo-theme-jane">Jane</a>
+  </span>
+
+  <span class="copyright-year">
+    &copy; 
+    
+      2017 - 
+    2018
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Alexander</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+<script src="/lib/highlight/highlight.pack.js?v=20171001"></script>
+<script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout-1.0.1.min.js"></script>
+  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+<script type="text/javascript" src="/dist/jane.min.js?v=2.7.0"></script>
+
+
+
+
+
+</body>
+</html>

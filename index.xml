@@ -6,10 +6,116 @@
     <description>Recent content on </description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ru</language>
-    <lastBuildDate>Sun, 25 Mar 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 25 Apr 2018 00:00:00 +0000</lastBuildDate>
     
         <atom:link href="https://shurikus57.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Использование Lint в Android Studio для проверки своего кода</title>
+      <link>https://shurikus57.github.io/post/2018/04/lint_in_android_studio/</link>
+      <pubDate>Wed, 25 Apr 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://shurikus57.github.io/post/2018/04/lint_in_android_studio/</guid>
+      
+        <description>&lt;p&gt;На практике в коде очень часто можно встретить очевидные ошибки, спустя какое-то время. Это может происходить из-за невнимательности при написании кода. Что бы свести такие ошибки к минимуму могут помочь статические анализаторы кода. Одним из таких анализаторов является &lt;strong&gt;Lint&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Lint&lt;/strong&gt; - это статический анализатор кода, который сообщает о подозрительных или критических выражениях в коде. По факту это слово стало нарицательным и им называют анализаторы, которые сканируют код на наличие ошибок.&lt;/p&gt;
+
+&lt;p&gt;В Android Studio уже есть встроенные анализаторы кода, который дают подсказки &amp;ldquo;налету&amp;rdquo;.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://shurikus57.github.io/2018/04/0.vk0sxuun7g.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Однако подсказки подсвечивают ошибки достаточно ненавязчиво и поэтому их легко пропустить. Но можно запустить проверку несколькими способами.&lt;/p&gt;
+
+&lt;h2 id=&#34;способы-запуска-lint&#34;&gt;Способы запуска Lint.&lt;/h2&gt;
+
+&lt;h3 id=&#34;запуск-через-меню-в-android-studio&#34;&gt;Запуск через меню в Android Studio&lt;/h3&gt;
+
+&lt;p&gt;Самый простой и удобный способ запуска проверки - это через Android Studio. Для этого в меню необходимо выбрать пункты &lt;strong&gt;Analyze -&amp;gt; Inspect Code&lt;/strong&gt;. В появившемся окне можно ограничить область сканирования кода. Можно проверить весь проект, определённый модуль или отдельный взятый класс. На мой взгляд самый полезных из пунктов - это проверка не закоммиченых файлов. Так же можно выбрать профиль с набором правил для проверки.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://shurikus57.github.io/2018/04/0.1dbij1b5zx3.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;После выбора настроек можно начать проверку по нажатию на кнопку &lt;strong&gt;Ок&lt;/strong&gt;. Когда проверка закончиться то появиться окно в котором все ошибки, и предупреждения будут выведены в специальном окне. Все замечания удобно собраны по типам с кратким описание причины и решением проблемы.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://shurikus57.github.io/2018/04/0.vd7ze705hrr.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;запуск-через-командную-строку&#34;&gt;Запуск через командную строку&lt;/h3&gt;
+
+&lt;p&gt;Так же проверку можно запустить через gradle выполнив в консоли команду:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;./gradlew lint
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;После проверки сформируется отчёт в формате html, который можно посмотреть по следующему пути:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;/путь_к_проекту/app/build/reports/lint-results.html
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://shurikus57.github.io/2018/04/0.kwp4i9sqfib.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Этот способ менее удобный чем первый, так как отчёт формируется в отрыве от студии и для правки ошибок нужно постоянно переключаться между отчётом и IDE. Зато этот способ прекрасно подходит для случаев если проверку осуществляется на сервере, а в случае обнаружение ошибок, прикреплять файл с отчётом к письму.&lt;/p&gt;
+
+&lt;h3 id=&#34;запуск-при-сборке-проекта&#34;&gt;Запуск при сборке проекта.&lt;/h3&gt;
+
+&lt;p&gt;Можно автоматизировать запуск проверки &lt;strong&gt;lint&lt;/strong&gt;, который будет осуществлять при каждой сборке проекта. Для этого необходимо зайти в настройки запуска проекта:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://shurikus57.github.io/2018/04/0.g9ehbhbsyy6.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Добавить следующую строку:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;:app:check
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://shurikus57.github.io/2018/04/0.9uluolx5moh.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://shurikus57.github.io/2018/04/0.9djeakj61z5.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Этот способ менее предпочтительный так как значительно замедлит скорость сборки и разработки.&lt;/p&gt;
+
+&lt;h3 id=&#34;настройка-gradle-сборки&#34;&gt;Настройка gradle сборки&lt;/h3&gt;
+
+&lt;p&gt;Так же lint проверку можно настроить в gradle файле.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;lintOptions {
+    abortOnError false
+    warningsAsErrors true
+    lintConfig file(&#39;./code_quality_tools/lint.xml&#39;)
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;abortOnError&lt;/strong&gt;: В случае обнаружение ошибки прекращается проверка.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;warningsAsErrors&lt;/strong&gt;: определяет предупреждения как ошибки.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;lintConfig&lt;/strong&gt;: путь к файлу проекта с настройками lint.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Если опция &lt;strong&gt;abortOnError&lt;/strong&gt; включена, то при запуске сборки через gradle в случае обнаружении ошибки произойдёт исключение:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://shurikus57.github.io/2018/04/0.qudg0ahc9gf.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;настройка-правил-проверки-lint&#34;&gt;Настройка правил проверки lint&lt;/h2&gt;
+
+&lt;p&gt;Отредактировать правила lint можно в настройках Android studio. Там же можно сделать отдельный конфигурационный профиль и использовать его.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://shurikus57.github.io/2018/04/0.kjxqrx82l1q.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;отключение-проверки-lint-с-помощью-анотаций-в-коде&#34;&gt;Отключение проверки Lint с помощью анотаций в коде&lt;/h2&gt;
+
+&lt;p&gt;Иногда бывают исключения, и может сложиться ситуация что необходимо отключить проверку какого-либо правила проверки для класса или метода. В Java коде это делается через аннотацию &lt;strong&gt;@SuppressLint(&amp;ldquo;NewApi&amp;rdquo;)&lt;/strong&gt;. В качестве параметра принимает строку названия проверки которую нужно исключить. Если нужно исключить все правила, то можно использовать следующую аннотацию:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@SuppressLint(&amp;quot;all&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Так же проверку можно обойти в xml файлах с помощью аттрибута &lt;strong&gt;tools:ignore=&amp;ldquo;NewApi,StringFormatInvalid&amp;rdquo;&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;h2 id=&#34;выводы&#34;&gt;Выводы&lt;/h2&gt;
+
+&lt;p&gt;В данной статье мы рассмотрели основные способы запуска проверки кода. Lint очень полезный инструмент для контроля за качеством кода, которым можно и нужно пользоваться.&lt;/p&gt;</description>
+      
+    </item>
     
     <item>
       <title>Flutter часть 1. Установка и настройка</title>
