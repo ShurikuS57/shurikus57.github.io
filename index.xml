@@ -6,10 +6,188 @@
     <description>Recent content on </description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ru</language>
-    <lastBuildDate>Wed, 25 Apr 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 05 May 2018 00:00:00 +0000</lastBuildDate>
     
         <atom:link href="https://shurikus57.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Flutter. Часть 2. Пишем первый экран</title>
+      <link>https://shurikus57.github.io/post/2018/05/flutter_authorization/</link>
+      <pubDate>Sat, 05 May 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://shurikus57.github.io/post/2018/05/flutter_authorization/</guid>
+      
+        <description>&lt;p&gt;В &lt;a href=&#34;https://shurikus57.github.io/post/2018/03/setup_flutter/&#34;&gt;предыдущей статье&lt;/a&gt; мы подключили Flutter SDK и создали hello world приложение. Сейчас создадим простое приложение где реализуем экран авторизации, простой механизм валидации логина и пароля и если валидация пройдёт успешно, то осуществить переход на следующий экран:&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://shurikus57.github.io/2018/05/animation_flutter.gif&#34; alt=&#34;animation_flutter&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Создадим новый проект как было описано в предыдущей статье. Заменим содержимое файл &lt;strong&gt;\lib\main.dart&lt;/strong&gt; на представленный ниже код:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;  import &#39;package:flutter/material.dart&#39;;
+  
+  void main() =&amp;gt; runApp(
+        new MyApp(),
+      );
+  
+  class MyApp extends StatelessWidget {
+    @override
+    Widget build(BuildContext context) {
+      return new MaterialApp(home: new Scaffold());
+    }
+  }
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Как и в Java у Dart есть точка входа с которой начинается запуск программы - это метод &lt;strong&gt;main()&lt;/strong&gt;. Нотация &lt;strong&gt;=&amp;gt;&lt;/strong&gt; предназначена для более наглядного представления вызова функций. Функция &lt;strong&gt;runApp&lt;/strong&gt; предназначена для создания и вывода на экран виджета, который мы создаём и передаём в качестве параметра.&lt;/p&gt;
+
+&lt;p&gt;Класс &lt;strong&gt;MyApp&lt;/strong&gt; наследуется от &lt;strong&gt;StatelessWidget&lt;/strong&gt; тем самым получает свойства неизменяемого виджета. При наследовании нужно переопределить метод создания виджета &lt;strong&gt;build(BuildContext context)&lt;/strong&gt;. &lt;strong&gt;MaterialApp&lt;/strong&gt; - создаёт приложение которое, реализует принципы material design. В качестве маршрута по умолчанию в параметре &lt;strong&gt;home&lt;/strong&gt; передадим класс &lt;strong&gt;Scaffold()&lt;/strong&gt;, который реализует основную структура макета.&lt;/p&gt;
+
+&lt;p&gt;Если запустить этот код, то на экране будет отображён пустой белый экран с пометкой &lt;strong&gt;debug&lt;/strong&gt; в правом верхнем углу:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://shurikus57.github.io/2018/05/0.21pttad99gf.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Теперь разместим визуальные компоненты на экране. Как мы помним из первой стать во flutter все визуальные компоненты являются виджетами. Благодаря взаимовложенности виджетов друг в друга и строиться графический интерфейс.&lt;/p&gt;
+
+&lt;p&gt;Сейчас у нас есть пустой экран, создадим два поля для ввода текста и кнопку login.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;class MyApp extends StatelessWidget {
+  final _sizeTextBlack = const TextStyle(fontSize: 20.0, color: Colors.black);
+  final _sizeTextWhite = const TextStyle(fontSize: 20.0, color: Colors.white);
+
+  @override
+  Widget build(BuildContext context) {
+    return new MaterialApp(
+      home: new Scaffold(
+        body: new Center(
+            child: new Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: &amp;lt;Widget&amp;gt;[
+                new Container(
+                  child: new TextFormField(
+                    decoration: new InputDecoration(labelText: &amp;quot;Email&amp;quot;),
+                    keyboardType: TextInputType.emailAddress,
+                    style: _sizeTextBlack,
+                  ),
+                  width: 400.0,
+                ),
+                new Container(
+                  child: new TextFormField(
+                    decoration: new InputDecoration(labelText: &amp;quot;Password&amp;quot;),
+                    obscureText: true,
+                    style: _sizeTextBlack,
+                  ),
+                  width: 400.0,
+                  padding: new EdgeInsets.only(top: 10.0),
+                ),
+                new Padding(
+                  padding: new EdgeInsets.only(top: 25.0),
+                  child: new MaterialButton(
+                    color: Theme
+                        .of(context)
+                        .accentColor,
+                    height: 50.0,
+                    minWidth: 150.0,
+                    child: new Text(
+                      &amp;quot;LOGIN&amp;quot;,
+                      style: _sizeTextWhite,
+                    ),
+                  ),
+                )
+              ],
+            )
+        ),
+      ),
+    );
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Для того что бы выронить все элементы по центру экрана воспользуемся классом &lt;strong&gt;Center&lt;/strong&gt; (строка 9). Для расположения все элементы в один столбец необходимо использовать класс &lt;strong&gt;Column&lt;/strong&gt; в котором для выравнивания дочерних элементов по центру задаём значение параметра &lt;strong&gt;mainAxisAlignment: MainAxisAlignment.center&lt;/strong&gt; (строки 10-11).&lt;/p&gt;
+
+&lt;p&gt;В класс &lt;strong&gt;Column&lt;/strong&gt; можно передать массив виджетов которые будут отображаться внутри него в вертикальном порядке друг под другом (строка 12). Каждое полу ввода нужно ограничить по ширине, поэтому необходимо &amp;ldquo;завернуть&amp;rdquo; всё это в ещё один класс &lt;strong&gt;Container&lt;/strong&gt;. У которого уже можно задать нужный параметр width (строка 19). В качестве параметров стиля для текста создадим две переменные &lt;strong&gt;_sizeTextBlack&lt;/strong&gt; и &lt;strong&gt;_sizeTextWhite&lt;/strong&gt; (строки 2-3).&lt;/p&gt;
+
+&lt;p&gt;Для поля ввода Email зададим параметр типа клавиатуры &lt;strong&gt;TextInputType.emailAddress&lt;/strong&gt;, а для поля пароля выставим &lt;strong&gt;obscureText&lt;/strong&gt; в &lt;strong&gt;true&lt;/strong&gt; (строка 16 и 24).&lt;/p&gt;
+
+&lt;p&gt;Для отображение кнопки нам понадобиться отступ который мы сможем задать через класс &lt;strong&gt;Padding&lt;/strong&gt; (строка 30).&lt;/p&gt;
+
+&lt;p&gt;В итоге у нас получиться следующий результат:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://shurikus57.github.io/2018/05/0.kpqyaj9z6j.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Далее реализуем простую логику валидации почты и пароля. Для хранения и передачи данных создадим в классе &lt;strong&gt;MyApp&lt;/strong&gt; две переменные &lt;strong&gt;_email&lt;/strong&gt; и &lt;strong&gt;_password&lt;/strong&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;class MyApp extends StatelessWidget {
+    String _email;
+    String _password;
+    ...
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;У виджета &lt;strong&gt;TextFormField&lt;/strong&gt; есть метод &lt;strong&gt;onSaved&lt;/strong&gt; который возвращает значение поля ввода при изменениях. Это значение сохраняем в переменные &lt;strong&gt;_email&lt;/strong&gt; и &lt;strong&gt;_password&lt;/strong&gt; соответственно. Так же есть функция &lt;strong&gt;validator&lt;/strong&gt; в которой можно реализовать логику отображения подсказки в случае если валидация не пройдена.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;child: new TextFormField(
+  ...
+  onSaved: (val) =&amp;gt; _email = val,
+  validator: (val) =&amp;gt;
+      !val.contains(&amp;quot;@&amp;quot;) ? &#39;Not a valid email.&#39; : null,
+      ...
+),
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Обработаем событие нажатие на кнопку. В виджет &lt;strong&gt;MaterialButton&lt;/strong&gt; есть функция &lt;strong&gt;onPressed&lt;/strong&gt; который вызывается после нажатие кнопки. Для лаконичности кода вынесем обработку нажатия в отдельный метод &lt;strong&gt;submit&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;child: new MaterialButton(
+  onPressed: submit,
+  ...
+),
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Для того что бы провалидировать сразу все поля нужно создать дополнительный виджет &lt;strong&gt;Form&lt;/strong&gt;. У него есть тип &lt;strong&gt;key&lt;/strong&gt;, который создаёт контейнер для полей формы. Его будем хранить в поле &lt;strong&gt;formKey&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;class MyApp extends StatelessWidget {
+  ...
+  final formKey = new GlobalKey&amp;lt;FormState&amp;gt;();
+  
+  ...
+  body: new Center(
+          child: new Form(
+              key: formKey,
+              child: new Column(
+  ...
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Реализуем метод &lt;strong&gt;submit()&lt;/strong&gt;. В нём выполняется получение полей ввода и вызова метода &lt;strong&gt;validate()&lt;/strong&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;void submit() {
+    final form = formKey.currentState;
+    if (form.validate()) {
+      form.save();
+      performLogin();
+    }
+  }
+
+  void performLogin() {
+    hideKeyboard();
+    Navigator.push(
+        _context,
+        new MaterialPageRoute(
+            builder: (context) =&amp;gt; new SecondScreen(_email, _password)));
+  }
+
+  void hideKeyboard() {
+    SystemChannels.textInput.invokeMethod(&#39;TextInput.hide&#39;);
+  }
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;После успешной валидации скрываем клавиатуру и открываем экран в который передадим значение логина и пароля:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://shurikus57.github.io/2018/05/0.yfwksc1ktbs.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Весь код проекта можно посмотреть по &lt;a href=&#34;https://github.com/ShurikuS57/flutter_authorization_example&#34;&gt;ссылке&lt;/a&gt;.&lt;/p&gt;</description>
+      
+    </item>
     
     <item>
       <title>Использование Lint в Android Studio для проверки своего кода</title>

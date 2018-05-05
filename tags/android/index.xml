@@ -6,10 +6,21 @@
     <description>Recent content in Android on </description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ru</language>
-    <lastBuildDate>Wed, 25 Apr 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 05 May 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://shurikus57.github.io/tags/android/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Flutter. Часть 2. Пишем первый экран</title>
+      <link>https://shurikus57.github.io/post/2018/05/flutter_authorization/</link>
+      <pubDate>Sat, 05 May 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://shurikus57.github.io/post/2018/05/flutter_authorization/</guid>
+      <description>&lt;p&gt;В &lt;a href=&#34;https://shurikus57.github.io/post/2018/03/setup_flutter/&#34;&gt;предыдущей статье&lt;/a&gt; мы подключили Flutter SDK и создали hello world приложение. Сейчас создадим простое приложение где реализуем экран авторизации, простой механизм валидации логина и пароля и если валидация пройдёт успешно, то осуществить переход на следующий экран:&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>Использование Lint в Android Studio для проверки своего кода</title>

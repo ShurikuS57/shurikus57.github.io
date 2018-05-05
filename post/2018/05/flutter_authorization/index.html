@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Flutter. Часть 2. Пишем первый экран - </title>
+  <link rel="alternate" hreflang="ru" href="https://shurikus57.github.io/" />
+
+<meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Alexander" />
+  <meta name="description" content="В предыдущей статье мы подключили Flutter SDK и создали hello world приложение. Сейчас создадим простое приложение где реализуем экран авторизации, простой механизм валидации логина и пароля и если валидация пройдёт успешно, то осуществить переход на следующий экран:
+
+" />
+
+  <meta name="keywords" content="Hugo, theme, jane" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.37.1" />
+
+
+<link rel="canonical" href="https://shurikus57.github.io/post/2018/05/flutter_authorization/" />
+
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" href="/favicon.ico" />
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+
+<link href="/dist/jane.min.css?v=2.7.0" rel="stylesheet">
+<link href="/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+
+
+
+
+<meta property="og:title" content="Flutter. Часть 2. Пишем первый экран" />
+<meta property="og:description" content="В предыдущей статье мы подключили Flutter SDK и создали hello world приложение. Сейчас создадим простое приложение где реализуем экран авторизации, простой механизм валидации логина и пароля и если валидация пройдёт успешно, то осуществить переход на следующий экран:
+
+" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://shurikus57.github.io/post/2018/05/flutter_authorization/" />
+
+
+
+<meta property="article:published_time" content="2018-05-05T00:00:00&#43;00:00"/>
+
+<meta property="article:modified_time" content="2018-05-05T00:00:00&#43;00:00"/>
+
+
+
+
+
+
+
+
+
+
+
+<meta itemprop="name" content="Flutter. Часть 2. Пишем первый экран">
+<meta itemprop="description" content="В предыдущей статье мы подключили Flutter SDK и создали hello world приложение. Сейчас создадим простое приложение где реализуем экран авторизации, простой механизм валидации логина и пароля и если валидация пройдёт успешно, то осуществить переход на следующий экран:
+
+">
+
+
+<meta itemprop="datePublished" content="2018-05-05T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2018-05-05T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="743">
+
+
+
+<meta itemprop="keywords" content="Android,Flutter,UI," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Flutter. Часть 2. Пишем первый экран"/>
+<meta name="twitter:description" content="В предыдущей статье мы подключили Flutter SDK и создали hello world приложение. Сейчас создадим простое приложение где реализуем экран авторизации, простой механизм валидации логина и пароля и если валидация пройдёт успешно, то осуществить переход на следующий экран:
+
+"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-115865677-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='//www.google-analytics.com/analytics.js'></script>
+
+
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo"></a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Главная</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Архив</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Метки</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Категории</li>
+      </a>
+  </ul>
+</nav>
+
+  <header id="header" class="header container">
+    <div class="logo-wrapper">
+  <a href="/" class="logo"></a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Главная</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Архив</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Метки</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Категории</a>
+      </li>
+  </ul>
+</nav>
+  </header>
+
+  <div id="mobile-panel">
+    <main id="main" class="main bg-llight">
+      <div class="content-wrapper">
+        <div id="content" class="content container">
+          <article class="post bg-white">
+    
+    <header class="post-header">
+      <h1 class="post-title">Flutter. Часть 2. Пишем первый экран</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 5 May 2018 </span>
+        <div class="post-category">
+            
+              <a href="/categories/android/"> Android </a>
+            
+              <a href="/categories/flutter/"> Flutter </a>
+            
+          </div>
+        <span class="more-meta"> 743 слов </span>
+        <span class="more-meta"> 4 мин. чтения </span>
+      </div>
+    </header>
+
+    
+    
+<div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Содержание</h2>
+  
+  <div class="post-toc-content always-active">
+    
+  </div>
+</div>
+
+    
+    <div class="post-content">
+      <p>В <a href="https://shurikus57.github.io/post/2018/03/setup_flutter/">предыдущей статье</a> мы подключили Flutter SDK и создали hello world приложение. Сейчас создадим простое приложение где реализуем экран авторизации, простой механизм валидации логина и пароля и если валидация пройдёт успешно, то осуществить переход на следующий экран:</p>
+
+<p></p>
+
+<p><img src="/2018/05/animation_flutter.gif" alt="animation_flutter" /></p>
+
+<p>Создадим новый проект как было описано в предыдущей статье. Заменим содержимое файл <strong>\lib\main.dart</strong> на представленный ниже код:</p>
+
+<pre><code>  import 'package:flutter/material.dart';
+  
+  void main() =&gt; runApp(
+        new MyApp(),
+      );
+  
+  class MyApp extends StatelessWidget {
+    @override
+    Widget build(BuildContext context) {
+      return new MaterialApp(home: new Scaffold());
+    }
+  }
+</code></pre>
+
+<p>Как и в Java у Dart есть точка входа с которой начинается запуск программы - это метод <strong>main()</strong>. Нотация <strong>=&gt;</strong> предназначена для более наглядного представления вызова функций. Функция <strong>runApp</strong> предназначена для создания и вывода на экран виджета, который мы создаём и передаём в качестве параметра.</p>
+
+<p>Класс <strong>MyApp</strong> наследуется от <strong>StatelessWidget</strong> тем самым получает свойства неизменяемого виджета. При наследовании нужно переопределить метод создания виджета <strong>build(BuildContext context)</strong>. <strong>MaterialApp</strong> - создаёт приложение которое, реализует принципы material design. В качестве маршрута по умолчанию в параметре <strong>home</strong> передадим класс <strong>Scaffold()</strong>, который реализует основную структура макета.</p>
+
+<p>Если запустить этот код, то на экране будет отображён пустой белый экран с пометкой <strong>debug</strong> в правом верхнем углу:</p>
+
+<p><img src="/2018/05/0.21pttad99gf.png" alt="" /></p>
+
+<p>Теперь разместим визуальные компоненты на экране. Как мы помним из первой стать во flutter все визуальные компоненты являются виджетами. Благодаря взаимовложенности виджетов друг в друга и строиться графический интерфейс.</p>
+
+<p>Сейчас у нас есть пустой экран, создадим два поля для ввода текста и кнопку login.</p>
+
+<pre><code>class MyApp extends StatelessWidget {
+  final _sizeTextBlack = const TextStyle(fontSize: 20.0, color: Colors.black);
+  final _sizeTextWhite = const TextStyle(fontSize: 20.0, color: Colors.white);
+
+  @override
+  Widget build(BuildContext context) {
+    return new MaterialApp(
+      home: new Scaffold(
+        body: new Center(
+            child: new Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: &lt;Widget&gt;[
+                new Container(
+                  child: new TextFormField(
+                    decoration: new InputDecoration(labelText: &quot;Email&quot;),
+                    keyboardType: TextInputType.emailAddress,
+                    style: _sizeTextBlack,
+                  ),
+                  width: 400.0,
+                ),
+                new Container(
+                  child: new TextFormField(
+                    decoration: new InputDecoration(labelText: &quot;Password&quot;),
+                    obscureText: true,
+                    style: _sizeTextBlack,
+                  ),
+                  width: 400.0,
+                  padding: new EdgeInsets.only(top: 10.0),
+                ),
+                new Padding(
+                  padding: new EdgeInsets.only(top: 25.0),
+                  child: new MaterialButton(
+                    color: Theme
+                        .of(context)
+                        .accentColor,
+                    height: 50.0,
+                    minWidth: 150.0,
+                    child: new Text(
+                      &quot;LOGIN&quot;,
+                      style: _sizeTextWhite,
+                    ),
+                  ),
+                )
+              ],
+            )
+        ),
+      ),
+    );
+  }
+}
+</code></pre>
+
+<p>Для того что бы выронить все элементы по центру экрана воспользуемся классом <strong>Center</strong> (строка 9). Для расположения все элементы в один столбец необходимо использовать класс <strong>Column</strong> в котором для выравнивания дочерних элементов по центру задаём значение параметра <strong>mainAxisAlignment: MainAxisAlignment.center</strong> (строки 10-11).</p>
+
+<p>В класс <strong>Column</strong> можно передать массив виджетов которые будут отображаться внутри него в вертикальном порядке друг под другом (строка 12). Каждое полу ввода нужно ограничить по ширине, поэтому необходимо &ldquo;завернуть&rdquo; всё это в ещё один класс <strong>Container</strong>. У которого уже можно задать нужный параметр width (строка 19). В качестве параметров стиля для текста создадим две переменные <strong>_sizeTextBlack</strong> и <strong>_sizeTextWhite</strong> (строки 2-3).</p>
+
+<p>Для поля ввода Email зададим параметр типа клавиатуры <strong>TextInputType.emailAddress</strong>, а для поля пароля выставим <strong>obscureText</strong> в <strong>true</strong> (строка 16 и 24).</p>
+
+<p>Для отображение кнопки нам понадобиться отступ который мы сможем задать через класс <strong>Padding</strong> (строка 30).</p>
+
+<p>В итоге у нас получиться следующий результат:</p>
+
+<p><img src="/2018/05/0.kpqyaj9z6j.png" alt="" /></p>
+
+<p>Далее реализуем простую логику валидации почты и пароля. Для хранения и передачи данных создадим в классе <strong>MyApp</strong> две переменные <strong>_email</strong> и <strong>_password</strong>:</p>
+
+<pre><code>class MyApp extends StatelessWidget {
+    String _email;
+    String _password;
+    ...
+</code></pre>
+
+<p>У виджета <strong>TextFormField</strong> есть метод <strong>onSaved</strong> который возвращает значение поля ввода при изменениях. Это значение сохраняем в переменные <strong>_email</strong> и <strong>_password</strong> соответственно. Так же есть функция <strong>validator</strong> в которой можно реализовать логику отображения подсказки в случае если валидация не пройдена.</p>
+
+<pre><code>child: new TextFormField(
+  ...
+  onSaved: (val) =&gt; _email = val,
+  validator: (val) =&gt;
+      !val.contains(&quot;@&quot;) ? 'Not a valid email.' : null,
+      ...
+),
+</code></pre>
+
+<p>Обработаем событие нажатие на кнопку. В виджет <strong>MaterialButton</strong> есть функция <strong>onPressed</strong> который вызывается после нажатие кнопки. Для лаконичности кода вынесем обработку нажатия в отдельный метод <strong>submit</strong>.</p>
+
+<pre><code>child: new MaterialButton(
+  onPressed: submit,
+  ...
+),
+</code></pre>
+
+<p>Для того что бы провалидировать сразу все поля нужно создать дополнительный виджет <strong>Form</strong>. У него есть тип <strong>key</strong>, который создаёт контейнер для полей формы. Его будем хранить в поле <strong>formKey</strong>.</p>
+
+<pre><code>class MyApp extends StatelessWidget {
+  ...
+  final formKey = new GlobalKey&lt;FormState&gt;();
+  
+  ...
+  body: new Center(
+          child: new Form(
+              key: formKey,
+              child: new Column(
+  ...
+}
+</code></pre>
+
+<p>Реализуем метод <strong>submit()</strong>. В нём выполняется получение полей ввода и вызова метода <strong>validate()</strong>:</p>
+
+<pre><code>void submit() {
+    final form = formKey.currentState;
+    if (form.validate()) {
+      form.save();
+      performLogin();
+    }
+  }
+
+  void performLogin() {
+    hideKeyboard();
+    Navigator.push(
+        _context,
+        new MaterialPageRoute(
+            builder: (context) =&gt; new SecondScreen(_email, _password)));
+  }
+
+  void hideKeyboard() {
+    SystemChannels.textInput.invokeMethod('TextInput.hide');
+  }
+</code></pre>
+
+<p>После успешной валидации скрываем клавиатуру и открываем экран в который передадим значение логина и пароля:</p>
+
+<p><img src="/2018/05/0.yfwksc1ktbs.png" alt="" /></p>
+
+<p>Весь код проекта можно посмотреть по <a href="https://github.com/ShurikuS57/flutter_authorization_example">ссылке</a>.</p>
+    </div>
+
+    
+    
+
+    
+    
+
+    <footer class="post-footer">
+      <div class="post-tags">
+          
+          <a href="/tags/android/">Android</a>
+          
+          <a href="/tags/flutter/">Flutter</a>
+          
+          <a href="/tags/ui/">UI</a>
+          
+        </div>
+
+      
+      <nav class="post-nav">
+        
+        
+          <a class="next" href="/post/2018/04/lint_in_android_studio/">
+            <span class="next-text nav-default">Использование Lint в Android Studio для проверки своего кода</span>
+            <span class="prev-text nav-mobile">Далее</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+    
+
+  <div class="disqus-button" id="load_disqus" onclick="load_disqus()">
+      Show Disqus Comments
+    </div>
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    function load_disqus() {
+        
+        
+        if (window.location.hostname === 'localhost') return;
+
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        var disqus_shortname = 'progdev';
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+
+        $('#load_disqus').remove();
+    };
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    
+
+  
+
+  
+  </article>
+        </div>
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+  <a href="https://shurikus57.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - <a class="theme-link" href="https://github.com/xianmin/hugo-theme-jane">Jane</a>
+  </span>
+
+  <span class="copyright-year">
+    &copy; 
+    
+      2017 - 
+    2018
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Alexander</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+<script src="/lib/highlight/highlight.pack.js?v=20171001"></script>
+<script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout-1.0.1.min.js"></script>
+  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+<script type="text/javascript" src="/dist/jane.min.js?v=2.7.0"></script>
+
+
+
+
+
+</body>
+</html>
